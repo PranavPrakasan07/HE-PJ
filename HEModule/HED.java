@@ -52,7 +52,7 @@ public class HED {
 
     public static String encryptHE(String input) {
 
-        BigInteger ena = paillier.EncrypStr(input, r);
+        BigInteger ena = paillier.EncryptString(input, r);
 
         String ena_string = ena.toString();
 
@@ -61,7 +61,7 @@ public class HED {
 
     public static String decryptHE(String input) {
 
-        String dec = paillier.DecrpyStr(new BigInteger(input));
+        String dec = paillier.DecryptString(new BigInteger(input));
 
         return dec;
     }

@@ -85,7 +85,7 @@ public class Paillier {
         return c.modPow(lambda, nsquare).subtract(BigInteger.ONE).divide(n).multiply(u).mod(n);
     }
 
-    public BigInteger EncrypStr(String st, BigInteger r) {
+    public BigInteger EncryptString(String st, BigInteger r) {
         int temp = st.charAt(0);
         BigInteger num = new BigInteger(String.valueOf(temp));
 
@@ -93,11 +93,11 @@ public class Paillier {
             temp = st.charAt(i);
             num = num.multiply(BigInteger.valueOf(1000)).add(BigInteger.valueOf(temp));
         }
-        BigInteger enc = Encryption(num, r);
-        return enc;
+
+        return Encryption(num, r);
     }
 
-    public String DecrpyStr(BigInteger num) {
+    public String DecryptString(BigInteger num) {
         BigInteger num1 = Decryption(num);
         System.out.println("SecondBig:" + String.valueOf(num1));
         int strc = num1.toString().length();
