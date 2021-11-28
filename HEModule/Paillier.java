@@ -99,9 +99,9 @@ public class Paillier {
 
     public String DecrpyStr(BigInteger num) {
         BigInteger num1 = Decryption(num);
-        System.out.println("SecondBig" + String.valueOf(num1));
+        System.out.println("SecondBig:" + String.valueOf(num1));
         int strc = num1.toString().length();
-        System.out.println("strc length" + String.valueOf(strc));
+        System.out.println("strc length:" + String.valueOf(strc));
 
         String m = num1.toString();
         System.out.println("m string" + m);
@@ -114,7 +114,7 @@ public class Paillier {
 
         for (int i = 0; i < m.length(); i += 3) {
             strd.append((char) (Integer.parseInt(m.substring(i, i + 3))));
-            System.out.println("Process" + String.valueOf((strd)));
+            System.out.println("Process:" + String.valueOf((strd)));
         }
         return strd.toString();
     }
