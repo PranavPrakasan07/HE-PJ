@@ -53,6 +53,7 @@ public class HED {
     public static String encryptHE(String input) {
 
         BigInteger ena = paillier.encryptString(input, r);
+//        BigInteger ena = paillier.encryptStringParallel(input, r);
 
         String ena_string = ena.toString();
 

@@ -87,29 +87,52 @@ public class Paillier {
 
     public BigInteger encryptString(String st, BigInteger r) {
         int temp = st.charAt(0);
-//        System.out.println(temp);
+        // System.out.println(temp);
         BigInteger num = new BigInteger(String.valueOf(temp));
 
         for (int i = 1; i < st.length(); i++) {
+
             temp = st.charAt(i);
-//            System.out.println(temp);
+            // System.out.println(temp);
+
             num = num.multiply(BigInteger.valueOf(1000)).add(BigInteger.valueOf(temp));
-//            System.out.println("num:" + num);
+            // System.out.println("num:" + num);
+
         }
 
-//        System.out.println("end of loop");
+        // System.out.println("end of loop");
+
+        return encryption(num, r);
+    }
+
+    public BigInteger encryptStringParallel(String st, BigInteger r) {
+        int temp = st.charAt(0);
+        // System.out.println(temp);
+        BigInteger num = new BigInteger(String.valueOf(temp));
+
+        for (int i = 1; i < st.length(); i++) {
+
+            temp = st.charAt(i);
+            // System.out.println(temp);
+
+            num = num.multiply(BigInteger.valueOf(1000)).add(BigInteger.valueOf(temp));
+            // System.out.println("num:" + num);
+
+        }
+
+        // System.out.println("end of loop");
 
         return encryption(num, r);
     }
 
     public String decryptString(BigInteger num) {
         BigInteger num1 = decryption(num);
-//        System.out.println("SecondBig:" + String.valueOf(num1));
+        // System.out.println("SecondBig:" + String.valueOf(num1));
         int strc = num1.toString().length();
-//        System.out.println("strc length:" + String.valueOf(strc));
+        // System.out.println("strc length:" + String.valueOf(strc));
 
         String m = num1.toString();
-//        System.out.println("m string" + m);
+        // System.out.println("m string" + m);
 
         if (strc % 3 != 0) {
             m = "0" + m;
@@ -119,7 +142,7 @@ public class Paillier {
 
         for (int i = 0; i < m.length(); i += 3) {
             strd.append((char) (Integer.parseInt(m.substring(i, i + 3))));
-//            System.out.println("Process:" + String.valueOf((strd)));
+            // System.out.println("Process:" + String.valueOf((strd)));
         }
         return strd.toString();
     }
