@@ -1,4 +1,4 @@
-##Key generation
+## Key generation
 
 1. Choose two large prime numbers p and q randomly and independently of each other such that:
 
@@ -14,5 +14,3 @@
 
 3. Select random *g*
 <br>
-
-4. 
