@@ -25,7 +25,7 @@ public class HED {
         if (fileOps.check(FILENAME)) {
 
             BigInteger[] temp = fileOps.getKey(FILENAME);
-            paillier.KeyGeneration(512, 62, temp[0], temp[1]);
+            paillier.keyGeneration(512, 62, temp[0], temp[1]);
             r = temp[2];
 
         }
@@ -36,7 +36,7 @@ public class HED {
             // temp = [p, q, r]
 
             r = new BigInteger(512, new Random());
-            paillier.KeyGeneration(512, 62);
+            paillier.keyGeneration(512, 62);
 
             BigInteger[] temp;
 
@@ -52,7 +52,7 @@ public class HED {
 
     public static String encryptHE(String input) {
 
-        BigInteger ena = paillier.EncryptString(input, r);
+        BigInteger ena = paillier.encryptString(input, r);
 
         String ena_string = ena.toString();
 
@@ -61,7 +61,7 @@ public class HED {
 
     public static String decryptHE(String input) {
 
-        String dec = paillier.DecryptString(new BigInteger(input));
+        String dec = paillier.decryptString(new BigInteger(input));
 
         return dec;
     }

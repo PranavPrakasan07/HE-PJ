@@ -12,7 +12,7 @@ public class Paillier {
     private int bitLength;
 
     public Paillier(int bitLengthVal, int certainty) {
-        KeyGeneration(bitLengthVal, certainty);
+        keyGeneration(bitLengthVal, certainty);
     }
 
     public Paillier() {
@@ -26,7 +26,7 @@ public class Paillier {
         return res;
     }
 
-    public void KeyGeneration(int bitLengthVal, int certainty) {
+    public void keyGeneration(int bitLengthVal, int certainty) {
         bitLength = bitLengthVal;
 
         p = new BigInteger(bitLength / 2, certainty, new Random());
@@ -45,7 +45,7 @@ public class Paillier {
         }
     }
 
-    public void KeyGeneration(int bitLengthVal, int certainty, BigInteger a, BigInteger b) {
+    public void keyGeneration(int bitLengthVal, int certainty, BigInteger a, BigInteger b) {
         bitLength = bitLengthVal;
 
         p = a;
@@ -72,44 +72,44 @@ public class Paillier {
     }
 
     // Random r, 0 < r < n
-    public BigInteger Encryption(BigInteger m, BigInteger r) {
+    public BigInteger encryption(BigInteger m, BigInteger r) {
 
         // ciphertext c = ((g^m) * (r^n)) mod (n*n)
         return g.modPow(m, nsquare).multiply(r.modPow(n, nsquare)).mod(nsquare);
     }
 
-    public BigInteger Decryption(BigInteger c) {
+    public BigInteger decryption(BigInteger c) {
         BigInteger u = g.modPow(lambda, nsquare).subtract(BigInteger.ONE).divide(n).modInverse(n);
 
         // plaintext m = (L * ((c^lambda) mod (n*n)) * mu mod n
         return c.modPow(lambda, nsquare).subtract(BigInteger.ONE).divide(n).multiply(u).mod(n);
     }
 
-    public BigInteger EncryptString(String st, BigInteger r) {
+    public BigInteger encryptString(String st, BigInteger r) {
         int temp = st.charAt(0);
-        System.out.println(temp);
+//        System.out.println(temp);
         BigInteger num = new BigInteger(String.valueOf(temp));
 
         for (int i = 1; i < st.length(); i++) {
             temp = st.charAt(i);
-            System.out.println(temp);
+//            System.out.println(temp);
             num = num.multiply(BigInteger.valueOf(1000)).add(BigInteger.valueOf(temp));
-            System.out.println("num:" + num);
+//            System.out.println("num:" + num);
         }
 
-        System.out.println("end of loop");
+//        System.out.println("end of loop");
 
-        return Encryption(num, r);
+        return encryption(num, r);
     }
 
-    public String DecryptString(BigInteger num) {
-        BigInteger num1 = Decryption(num);
-        System.out.println("SecondBig:" + String.valueOf(num1));
+    public String decryptString(BigInteger num) {
+        BigInteger num1 = decryption(num);
+//        System.out.println("SecondBig:" + String.valueOf(num1));
         int strc = num1.toString().length();
-        System.out.println("strc length:" + String.valueOf(strc));
+//        System.out.println("strc length:" + String.valueOf(strc));
 
         String m = num1.toString();
-        System.out.println("m string" + m);
+//        System.out.println("m string" + m);
 
         if (strc % 3 != 0) {
             m = "0" + m;
@@ -119,7 +119,7 @@ public class Paillier {
 
         for (int i = 0; i < m.length(); i += 3) {
             strd.append((char) (Integer.parseInt(m.substring(i, i + 3))));
-            System.out.println("Process:" + String.valueOf((strd)));
+//            System.out.println("Process:" + String.valueOf((strd)));
         }
         return strd.toString();
     }

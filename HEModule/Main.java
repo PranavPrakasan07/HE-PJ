@@ -6,9 +6,11 @@ class Main {
 
         String entered_text = "Trial is this";
 
-        String encr = HED.encryptHE(entered_text);
-        System.out.println("ENA-OBJ:" + encr);
-        System.out.println("DEC-OBJ:" + HED.decryptHE(encr));
+        String encrypted = HED.encryptHE(entered_text);
+        String decrypted = HED.decryptHE(encrypted);
+
+        System.out.println("ENA-OBJ:" + encrypted);
+        System.out.println("DEC-OBJ:" + decrypted);
 
     }
 }
