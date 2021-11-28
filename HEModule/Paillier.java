@@ -87,12 +87,17 @@ public class Paillier {
 
     public BigInteger EncryptString(String st, BigInteger r) {
         int temp = st.charAt(0);
+        System.out.println(temp);
         BigInteger num = new BigInteger(String.valueOf(temp));
 
         for (int i = 1; i < st.length(); i++) {
             temp = st.charAt(i);
+            System.out.println(temp);
             num = num.multiply(BigInteger.valueOf(1000)).add(BigInteger.valueOf(temp));
+            System.out.println("num:" + num);
         }
+
+        System.out.println("end of loop");
 
         return Encryption(num, r);
     }

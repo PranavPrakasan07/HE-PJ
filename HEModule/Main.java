@@ -7,7 +7,7 @@ class Main {
         String entered_text = "Trial is this";
 
         String encr = HED.encryptHE(entered_text);
-        System.out.println("ENA-OBJ:" + HED.encryptHE(entered_text));
+        System.out.println("ENA-OBJ:" + encr);
         System.out.println("DEC-OBJ:" + HED.decryptHE(encr));
 
     }
