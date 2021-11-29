@@ -6,7 +6,7 @@ class Main {
 
     public static void main(String[] args) {
 
-        String entered_text = "sed enim ut sem viverra enimenim enim virrara sed s";
+        String entered_text = "sed enim ut sem viverra enimenim enim virrara sed ahg";
         System.out.println(entered_text.length());
 
         String encrypted = HED.encryptHE(entered_text);
