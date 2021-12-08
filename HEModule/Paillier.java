@@ -26,6 +26,10 @@ public class Paillier {
         return res;
     }
 
+    public void encData(){
+        BigInteger b = encryptStringParallel("", BigInteger.valueOf(0));
+    }
+
     public void keyGeneration(int bitLengthVal, int certainty) {
         bitLength = bitLengthVal;
 
@@ -80,10 +84,10 @@ public class Paillier {
         BigInteger gm = g.modPow(m, nsquare);
 
         // (r^n) mod (n*n)
-        BigInteger rm = r.modPow(n, nsquare);
+        BigInteger rn = r.modPow(n, nsquare);
 
         // ((g^m) * (r^n))
-        BigInteger gr = gm.multiply(rm);
+        BigInteger gr = gm.multiply(rn);
 
         return gr.mod(nsquare);
     }
@@ -108,8 +112,10 @@ public class Paillier {
     }
 
     public BigInteger encryptString(String st, BigInteger r) {
+
         int temp = st.charAt(0);
         // System.out.println(temp);
+
         BigInteger num = new BigInteger(String.valueOf(temp));
 
         // System.out.println(temp + " : " + num);
@@ -125,7 +131,7 @@ public class Paillier {
             // System.out.println(temp + " : " + num);
 
         }
-        System.out.println("num:" + num);
+//        System.out.println("num:" + num);
 
         // System.out.println("end of loop");
 
@@ -133,6 +139,24 @@ public class Paillier {
     }
 
     public BigInteger encryptStringParallel(String st, BigInteger r) {
+
+        int splitLength = st.length() / 4 ;
+
+        ThreadSplit s1 = new ThreadSplit(st.substring(0,splitLength));
+        ThreadSplit s2 = new ThreadSplit(st.substring(splitLength+1,2*splitLength));
+        ThreadSplit s3 = new ThreadSplit(st.substring(2*splitLength+1,3*splitLength));
+        ThreadSplit s4 = new ThreadSplit(st.substring(3*splitLength+1));
+
+        Thread t1 = new Thread(s1);
+        Thread t2 = new Thread(s2);
+        Thread t3 = new Thread(s3);
+        Thread t4 = new Thread(s4);
+
+        t1.start();
+        t2.start();
+        t3.start();
+        t4.start();
+
         int temp = st.charAt(0);
         // System.out.println(temp);
         BigInteger num = new BigInteger(String.valueOf(temp));
@@ -142,7 +166,7 @@ public class Paillier {
             temp = st.charAt(i);
             // System.out.println(temp);
 
-            num = num.multiply(BigInteger.valueOf(1000)).add(BigInteger.valueOf(temp));
+            //num = num.multiply(BigInteger.valueOf(1000)).add(BigInteger.valueOf(temp));
             // System.out.println("num:" + num);
 
         }
@@ -150,18 +174,18 @@ public class Paillier {
 
         System.out.println("end of loop");
 
-        return encryption(num, r);
+        return BigInteger.ONE;//encryption(num, r);
     }
 
     public String decryptString(BigInteger num) {
         BigInteger num1 = decryption(num);
-         System.out.println("SecondBig:" + String.valueOf(num1));
+//         System.out.println("SecondBig:" + String.valueOf(num1));
 
         int strc = num1.toString().length();
-         System.out.println("strc length:" + String.valueOf(strc));
+//         System.out.println("strc length:" + String.valueOf(strc));
 
         String m = num1.toString();
-         System.out.println("m string" + m);
+//         System.out.println("m string" + m);
 
         if (strc % 3 != 0) {
             m = "0" + m;
@@ -171,7 +195,7 @@ public class Paillier {
 
         for (int i = 0; i < m.length(); i += 3) {
             strd.append((char) (Integer.parseInt(m.substring(i, i + 3))));
-             System.out.println("Process:" + String.valueOf((strd)));
+//             System.out.println("Process:" + String.valueOf((strd)));
         }
         return strd.toString();
     }

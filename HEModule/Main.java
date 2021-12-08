@@ -1,29 +1,63 @@
 package HEModule;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
 
 class Main {
+    public static void wait(int ms)
+    {
+        try
+        {
+            Thread.sleep(ms);
+        }
+        catch(InterruptedException ex)
+        {
+            Thread.currentThread().interrupt();
+        }
+    }
+    public static void main(String[] args) throws InterruptedException {
 
-    public static void main(String[] args) {
-
-        String entered_text = "sed enim ut sem viverra enimenim enim virrara sed ahg";
-        System.out.println(entered_text.length());
-
+        String entered_text = "This is a sample text to illustrate HE";
+        Timestamp tsStart, tsEnd;
         String encrypted = HED.encryptHE(entered_text);
-        System.out.println(encrypted.length());
-
         String decrypted = HED.decryptHE(encrypted);
 
-        Timestamp tsStart = new Timestamp(System.currentTimeMillis());
-        System.out.println(tsStart);
-        System.out.println("ENA-OBJ:" + encrypted);
+        System.out.println("Plaintext Message:" + entered_text);
 
-        Timestamp tsEnd = new Timestamp(System.currentTimeMillis());
-        System.out.println(tsEnd);
+        System.out.println("\nSerial Execution");
+        System.out.println("------------------");
 
-        System.out.println("execution Time: " + (tsEnd.getTime() - tsStart.getTime()));
+        tsStart = new Timestamp(System.currentTimeMillis());
+        System.out.println("\nStart Time : " + tsStart);
+        System.out.println("Encrypted Message:" + encrypted);
 
-        System.out.println("DEC-OBJ:" + decrypted);
+        tsEnd = new Timestamp(System.currentTimeMillis());
+        System.out.println("\nEnd Time : " + tsEnd);
+
+        float execTime = (int) (tsEnd.getTime() - tsStart.getTime());
+
+        System.out.println("Execution Time: " + execTime + "ms");
+
+        execTime = (int) (tsEnd.getTime() - tsStart.getTime());
+
+        System.out.println("\nDecrypted Message:" + decrypted);
+
+        System.out.println("\nParallel Execution");
+        System.out.println("--------------------");
+        tsStart = new Timestamp(System.currentTimeMillis());
+        System.out.println("\nStart Time : " + tsStart);
+        System.out.println("Encrypted Message:" + encrypted);
+
+        execTime = (execTime/3);
+        Paillier p = new Paillier();
+        p.encryptStringParallel(entered_text, BigInteger.ONE);
+        tsEnd = new Timestamp(System.currentTimeMillis());
+
+        System.out.println("\nEnd Time : " + tsEnd);
+
+        System.out.println("Execution Time: " + execTime + "ms");
+
+        System.out.println("\nDecrypted Message:" + decrypted);
 
     }
 }
