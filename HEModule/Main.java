@@ -11,17 +11,12 @@ import java.sql.Timestamp;
 import java.util.Scanner;
 
 class Main {
-    public static void wait(int ms) {
-        try {
-            Thread.sleep(ms);
-        } catch (InterruptedException ex) {
-            Thread.currentThread().interrupt();
-        }
-    }
+
+    public static float time;
 
     public static void main(String[] args) throws InterruptedException {
 
-        String entered_text = "This is a sample text to illustrate HE";
+        String entered_text = "This is a sample text to convert HE";
         Timestamp tsStart, tsEnd;
         String encrypted = HED.encryptHE(entered_text);
         String decrypted = HED.decryptHE(encrypted);
@@ -38,11 +33,11 @@ class Main {
         tsEnd = new Timestamp(System.currentTimeMillis());
         System.out.println("\nEnd Time : " + tsEnd);
 
-        float execTime = (int) (tsEnd.getTime() - tsStart.getTime());
+        time = (int) (tsEnd.getTime() - tsStart.getTime());
 
-        System.out.println("Execution Time: " + execTime + "ms");
+        System.out.println("Execution Time: " + time + "ms");
 
-        execTime = (int) (tsEnd.getTime() - tsStart.getTime());
+        time = (int) (tsEnd.getTime() - tsStart.getTime());
 
         System.out.println("\nDecrypted Message:" + decrypted);
 
@@ -52,14 +47,13 @@ class Main {
         System.out.println("\nStart Time : " + tsStart);
         System.out.println("Encrypted Message:" + encrypted);
 
-        execTime = (execTime / 3);
         Paillier p = new Paillier();
         p.encryptStringParallel(entered_text, BigInteger.ONE);
         tsEnd = new Timestamp(System.currentTimeMillis());
-
         System.out.println("\nEnd Time : " + tsEnd);
 
-        System.out.println("Execution Time: " + execTime + "ms");
+        time = tsEnd.getTime() - tsStart.getTime();
+        System.out.println("Execution Time: " + time + "ms");
 
         System.out.println("\nDecrypted Message:" + decrypted);
 

@@ -118,6 +118,7 @@ public class Huffman {
             InputStream buffer = new BufferedInputStream(file);
             ObjectInput input = new ObjectInputStream(buffer);
 
+            //System.out.println("READOBJECT:", input.readObject());
             //Read Saved Tags
             WriteTable = (HashMap<String,Character>) input.readObject();
             bitVector = (BitSet) input.readObject();
